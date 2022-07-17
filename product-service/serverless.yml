@@ -9,6 +9,7 @@ provider:
 
 plugins:
     - serverless-webpack
+    - serverless-openapi-documentation
 
 functions:
     getProductsList:
@@ -17,14 +18,17 @@ functions:
             - httpApi:
                   path: /products
                   method: get
+                  documentation: ${file(./serverless.doc.yml):documentation.endpoints.getProductsList}
     getProductsById:
         handler: src/handlers/getProductsById.handler
         events:
             - httpApi:
                   path: /products/{productId}
                   method: get
+                  documentation: ${file(./serverless.doc.yml):documentation.endpoints.getProductsById}
 
 custom:
+    documentation: ${file(./serverless.doc.yml):documentation}
     webpack:
         webpackConfig: ./webpack.config.js
         includeModules: true
