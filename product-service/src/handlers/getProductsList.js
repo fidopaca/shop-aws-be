@@ -1,9 +1,9 @@
 "use strict";
-const http2 = require("http2");
-const { getAll } = require("../db/products.repository");
-const { formatJSONResponse } = require("../lib/formatJSONResponse");
+import http2 from "http2";
+import { getAll } from "../db/products.repository";
+import { formatJSONResponse } from "../lib/formatJSONResponse";
 
-module.exports.handler = async (event) => {
+export const handler = async (event) => {
     try {
         const productList = (await getAll()) || [];
         return formatJSONResponse(http2.constants.HTTP_STATUS_OK, productList);
