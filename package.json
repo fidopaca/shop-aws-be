@@ -1,0 +1,20 @@
+{
+  "name": "shop-aws-be",
+  "version": "1.0.0",
+  "description": "RS-AWS bootcamp project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fidopaca/shop-aws-be.git"
+  },
+  "keywords": [],
+  "author": "fedai paca",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fidopaca/shop-aws-be/issues"
+  },
+  "homepage": "https://github.com/fidopaca/shop-aws-be#readme"
+}
