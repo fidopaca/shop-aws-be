@@ -2,14 +2,14 @@
             module.exports = {
   "swagger": "2.0",
   "info": {
-    "title": "rs-aws-bootcamp-be",
+    "title": "RS-AWS Product Shop API",
     "version": "1"
   },
   "paths": {
     "/products": {
       "get": {
         "summary": "Get all products",
-        "description": "Cool API description is here",
+        "description": "",
         "operationId": "getProducts.get.products",
         "consumes": [
           "application/json"
@@ -20,36 +20,20 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Successfull API response",
+            "description": "All products.",
             "schema": {
               "$ref": "#/definitions/Product"
             }
+          },
+          "500": {
+            "description": "Server error."
           }
         }
       },
       "post": {
         "summary": "Create a new product",
-        "description": "Cool API description is here",
+        "description": "",
         "operationId": "createProduct.post.products",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "200 response"
-          }
-        }
-      }
-    },
-    "/products/{productId}": {
-      "get": {
-        "summary": "Get product by productId",
-        "description": "Cool API description is here",
-        "operationId": "getProductById.get.products/{productId}",
         "consumes": [
           "application/json"
         ],
@@ -65,7 +49,36 @@
             "schema": {
               "$ref": "#/definitions/CreateProductDTO"
             }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "New product created.",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
           },
+          "400": {
+            "description": "One or more inputs are invalid or missing."
+          },
+          "500": {
+            "description": "Server error."
+          }
+        }
+      }
+    },
+    "/products/{productId}": {
+      "get": {
+        "summary": "Get product by productId",
+        "description": "",
+        "operationId": "getProductById.get.products/{productId}",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
           {
             "name": "productId",
             "in": "path",
@@ -75,7 +88,19 @@
         ],
         "responses": {
           "200": {
-            "description": "200 response"
+            "description": "Found product with given productId.",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "400": {
+            "description": "Product id is invalid or missing in the paramater."
+          },
+          "404": {
+            "description": "Product not found."
+          },
+          "500": {
+            "description": "Server error."
           }
         }
       }

@@ -1,7 +1,7 @@
-import { handlerPath } from "../../utils/handler-resolver";
+import { pathHandler } from "../../utils/handler.utils";
 
 export default {
-  handler: `${handlerPath(__dirname)}/handler.main`,
+  handler: `${pathHandler(__dirname)}/handler.main`,
   events: [
     {
       http: {
@@ -9,12 +9,15 @@ export default {
         path: "products",
         cors:true,
         summary: "Get all products",
-        description: "Cool API description is here",
+        // description: "Cool API description is here",
         responses:{
           200:{
-            description: "Successfull API response",
+            description: "All products.",
             bodyType: "Product"
-          }
+          },
+          500: {
+            description: "Server error.",
+          },
         }
       },
     },

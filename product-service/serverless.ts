@@ -53,7 +53,8 @@ const serverlessConfiguration: AWS = {
     },
     autoswagger: {
       apiType: "http",
-      basePath: "/${self:provider.stage}"
+      basePath: "/${self:provider.stage}",
+      title:"RS-AWS Product Shop API"
     },
   },
   package: { individually: true },

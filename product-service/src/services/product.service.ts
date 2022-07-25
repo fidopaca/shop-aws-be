@@ -35,7 +35,7 @@ export async function getAll(): Promise<Product[]> {
     const { rows: products } = await client.query(query);
     return products;
   } catch (error) {
-    console.log("DB error: ", error);
+    console.log("Database Error ===> ", error);
     throw error;
   } finally {
     client.end();
@@ -56,7 +56,7 @@ export async function getById(productId: string): Promise<Product> {
 
     return products[0];
   } catch (error) {
-    console.log("DB error: ", error);
+    console.log("Database Error ===> ", error);
     throw error;
   } finally {
     client.end();
@@ -69,7 +69,7 @@ export async function createOne({ title, description, price, count }: CreateProd
 
   const createProductQuery = `
     INSERT INTO products (title, description, price) VALUES
-    ($1, $2, $3, $4, $5)
+    ($1, $2, $3)
 	  RETURNING *;
   `;
   const createStockQuery = `
@@ -90,7 +90,7 @@ export async function createOne({ title, description, price, count }: CreateProd
     await client.query("COMMIT");
     return { ...product, count: stock.count };
   } catch (error) {
-    console.log("DB error: ", error);
+    console.log("Database Error ===> ", error);
     await client.query("ROLLBACK");
     throw error;
   } finally {
