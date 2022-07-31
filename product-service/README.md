@@ -1,92 +1,95 @@
-<!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# Serverless - AWS Node.js Typescript
 
-# Serverless Framework Node HTTP API on AWS
+This project has been generated using the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
 
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
+For detailed instructions, please refer to the [documentation](https://www.serverless.com/framework/docs/providers/aws/).
 
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
+## Installation/deployment instructions
 
-## Usage
+Depending on your preferred package manager, follow the instructions below to deploy your project.
 
-### Deployment
+> **Requirements**: NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
 
-```
-$ serverless deploy
-```
+### Using NPM
 
-After deploying, you should see output similar to:
+- Run `npm i` to install the project dependencies
+- Run `npx sls deploy` to deploy this stack to AWS
 
-```bash
-Deploying aws-node-http-api-project to stage dev (us-east-1)
+### Using Yarn
 
-✔ Service deployed to stack aws-node-http-api-project-dev (152s)
+- Run `yarn` to install the project dependencies
+- Run `yarn sls deploy` to deploy this stack to AWS
 
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: aws-node-http-api-project-dev-hello (1.9 kB)
-```
+## Test your service
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
+This template contains a single lambda function triggered by an HTTP request made on the provisioned API Gateway REST API `/hello` route with `POST` method. The request body must be provided as `application/json`. The body structure is tested by API Gateway against `src/functions/hello/schema.ts` JSON-Schema definition: it must contain the `name` property.
 
-### Invocation
+- requesting any other path than `/hello` with any other method than `POST` will result in API Gateway returning a `403` HTTP error code
+- sending a `POST` request to `/hello` with a payload **not** containing a string property named `name` will result in API Gateway returning a `400` HTTP error code
+- sending a `POST` request to `/hello` with a payload containing a string property named `name` will result in API Gateway returning a `200` HTTP status code with a message saluting the provided name and the detailed event processed by the lambda
 
-After successful deployment, you can call the created application via HTTP:
+> :warning: As is, this template, once deployed, opens a **public** endpoint within your AWS account resources. Anybody with the URL can actively execute the API Gateway endpoint and the corresponding lambda. You should protect this endpoint with the authentication method of your choice.
 
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
+### Locally
 
-Which should result in response similar to the following (removed `input` content for brevity):
+In order to test the hello function locally, run the following command:
 
-```json
-{
-  "message": "Go Serverless v2.0! Your function executed successfully!",
-  "input": {
-    ...
-  }
-}
-```
+- `npx sls invoke local -f hello --path src/functions/hello/mock.json` if you're using NPM
+- `yarn sls invoke local -f hello --path src/functions/hello/mock.json` if you're using Yarn
 
-### Local development
+Check the [sls invoke local command documentation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/) for more information.
 
-You can invoke your function locally by using the following command:
+### Remotely
 
-```bash
-serverless invoke local --function hello
-```
-
-Which should result in response similar to the following:
+Copy and replace your `url` - found in Serverless `deploy` command output - and `name` parameter in the following `curl` command in your terminal or in Postman to test your newly deployed application.
 
 ```
-{
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
-}
+curl --location --request POST 'https://myApiEndpoint/dev/hello' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Frederic"
+}'
 ```
 
+## Template features
 
-Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
+### Project structure
 
-```bash
-serverless plugin install -n serverless-offline
-```
+The project code base is mainly located within the `src` folder. This folder is divided in:
 
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
-
-After installation, you can start local emulation with:
+- `functions` - containing code base and configuration for your lambda functions
+- `libs` - containing shared code base between your lambdas
 
 ```
-serverless offline
+.
+├── src
+│   ├── functions               # Lambda configuration and source code folder
+│   │   ├── hello
+│   │   │   ├── handler.ts      # `Hello` lambda source code
+│   │   │   ├── index.ts        # `Hello` lambda Serverless configuration
+│   │   │   ├── mock.json       # `Hello` lambda input parameter, if any, for local invocation
+│   │   │   └── schema.ts       # `Hello` lambda input event JSON-Schema
+│   │   │
+│   │   └── index.ts            # Import/export of all lambda configurations
+│   │
+│   └── libs                    # Lambda shared code
+│       └── apiGateway.ts       # API Gateway specific helpers
+│       └── handlerResolver.ts  # Sharable library for resolving lambda handlers
+│       └── lambda.ts           # Lambda middleware
+│
+├── package.json
+├── serverless.ts               # Serverless service file
+├── tsconfig.json               # Typescript compiler configuration
+├── tsconfig.paths.json         # Typescript paths
+└── webpack.config.js           # Webpack configuration
 ```
 
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
+### 3rd party libraries
+
+- [json-schema-to-ts](https://github.com/ThomasAribart/json-schema-to-ts) - uses JSON-Schema definitions used by API Gateway for HTTP request validation to statically generate TypeScript types in your lambda's handler code base
+- [middy](https://github.com/middyjs/middy) - middleware engine for Node.Js lambda. This template uses [http-json-body-parser](https://github.com/middyjs/middy/tree/master/packages/http-json-body-parser) to convert API Gateway `event.body` property, originally passed as a stringified JSON, to its corresponding parsed object
+- [@serverless/typescript](https://github.com/serverless/typescript) - provides up-to-date TypeScript definitions for your `serverless.ts` service file
+
+### Advanced usage
+
+Any tsconfig.json can be used, but if you do, set the environment variable `TS_NODE_CONFIG` for building the application, eg `TS_NODE_CONFIG=./tsconfig.app.json npx serverless webpack`
