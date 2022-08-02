@@ -16,18 +16,14 @@ export default {
             },
           },
         },
-        // responses:{
-        //   201:{
-        //     description: "New product created.",
-        //     bodyType: "Product"
-        //   },
-        //   400: {
-        //     description: "One or more inputs are invalid or missing.",
-        //   },
-        //   500: {
-        //     description: "Server error.",
-        //   },
-        // }
+        responses:{
+          200:{
+            description: "Creates and returns a new signed url for upload file to s3 bucket.",
+          },
+          500: {
+            description: "Server error.",
+          },
+        }
       },
     },
   ],

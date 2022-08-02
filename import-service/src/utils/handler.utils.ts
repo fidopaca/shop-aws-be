@@ -11,13 +11,12 @@ import logger from "./logger.utils";
 /* Helper to handle base lambda logic */
 export const lambdaHandler =
   (controllerCallback: (event: APIGatewayProxyEvent | S3Event) => Promise<ResponseBody>) =>
-  async (event: APIGatewayProxyEvent ) => {
-    const { body, pathParameters, queryStringParameters } = event;
+  async (event: APIGatewayProxyEvent) => {
     let statusCode: HttpCode;
     let result: ResponseBody;
 
     try {
-      logger.log("REQ ===>", { pathParameters, queryStringParameters, body });
+      logger.log("REQ EVENT ===>", event);
       result = await controllerCallback(event);
       logger.log(`RES <=== [${result.statusCode}]`, result);
     } catch (err) {
@@ -54,7 +53,7 @@ export const formatResponse = (response: any, statusCode: HttpCode = HttpCode.OK
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Credentials": true,
-      // "Content-Type": "application/json",
+      "Content-Type": "application/json",
     },
   };
 };

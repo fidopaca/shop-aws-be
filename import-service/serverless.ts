@@ -6,8 +6,7 @@ const serverlessConfiguration: AWS = {
   service: "import-service-rs-aws-bootcamp-be",
   frameworkVersion: "3",
   useDotenv: true,
-  plugins: ["serverless-esbuild", "serverless-offline"],
-  // plugins: ["serverless-auto-swagger", "serverless-esbuild", "serverless-offline"],
+  plugins: ["serverless-auto-swagger", "serverless-esbuild", "serverless-offline"],
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
@@ -21,6 +20,8 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
+      BUCKET_NAME: "${self:custom.importServiceBucket.name}",
+      AWS_PROFILE: process.env.AWS_PROFILE,
     },
     iam: {
       role: {

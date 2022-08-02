@@ -27,7 +27,10 @@
         ],
         "responses": {
           "200": {
-            "description": "200 response"
+            "description": "Creates and returns a new signed url for upload file to s3 bucket."
+          },
+          "500": {
+            "description": "Server error."
           }
         }
       }

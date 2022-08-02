@@ -12,8 +12,7 @@ export default {
             prefix: "uploaded/",
           },
         ],
-        existing: true,
-        // cors:true
+        existing: true
       },
     },
   ],
