@@ -2,9 +2,10 @@ import { SQSEvent } from "aws-lambda";
 import { PublishCommand, SNSClient } from "@aws-sdk/client-sns";
 
 import * as productService from "../../services/product.service";
-import { lambdaHandler } from "../../utils/handler.utils";
+import { formatResponse, lambdaHandler } from "../../utils/handler.utils";
+import { HttpCode } from "../../utils/http.utils";
 
-export const main = lambdaHandler(async (event: SQSEvent) => {
+export const catalogBatchProcess = async (event: SQSEvent) => {
   const snsClient = new SNSClient({ region: "us-east-1" });
 
   try {
@@ -29,7 +30,10 @@ export const main = lambdaHandler(async (event: SQSEvent) => {
         await snsClient.send(command);
       }
     }
+    return formatResponse(records, HttpCode.OK);
   } catch (error) {
     throw error;
   }
-});
+}
+
+export const main = lambdaHandler(catalogBatchProcess);
