@@ -1,6 +1,9 @@
 import type { AWS } from "@serverless/typescript";
 import importProductsFile from "@functions/importProductsFile";
 import importFileParser from "@functions/importFileParser";
+import * as dotenv from "dotenv";
+dotenv.config();
+
 
 const serverlessConfiguration: AWS = {
   service: "import-service-rs-aws-bootcamp-be",
@@ -12,7 +15,7 @@ const serverlessConfiguration: AWS = {
     runtime: "nodejs16.x",
     stage: "dev",
     region: "us-east-1",
-    profile: "${env:AWS_PROFILE}",
+    profile: "fidopaca-futurecodelab",
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -21,7 +24,9 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
       BUCKET_NAME: "${self:custom.importServiceBucket.name}",
-      AWS_PROFILE: process.env.AWS_PROFILE,
+      // AWS_PROFILE: process.env.AWS_PROFILE,
+      SQS_URL: "${param:sqsURL}",
+      // SQS_ARN: "${param:sqsArn}",
     },
     iam: {
       role: {
@@ -35,6 +40,11 @@ const serverlessConfiguration: AWS = {
             Effect: "Allow",
             Action: ["s3:*"],
             Resource: ["arn:aws:s3:::${self:custom.importServiceBucket.name}/*"],
+          },
+          {
+            Effect: "Allow",
+            Action: "sqs:*",
+            Resource: ["${param:sqsArn}"],
           },
         ],
       },

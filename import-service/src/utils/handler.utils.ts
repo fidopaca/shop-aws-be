@@ -20,6 +20,7 @@ export const lambdaHandler =
       result = await controllerCallback(event);
       logger.log(`RES <=== [${result.statusCode}]`, result);
     } catch (err) {
+      logger.error("ERROR CAUGHT ===>", err)
       if (err instanceof HttpError) {
         result.statusCode = err.statusCode;
         result.body = JSON.stringify({ message: err.message });
