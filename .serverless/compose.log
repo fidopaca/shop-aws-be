@@ -7,58 +7,17 @@ product-service › Running "serverless deploy --stage dev"
 product-service › Running "serverless" from node_modules
 product-service › Deploying rs-aws-bootcamp-be to stage dev (us-east-1)
 product-service › Creating Swagger file...
-product-service › ✔ Service deployed to stack rs-aws-bootcamp-be-dev (97s)
-product-service › endpoints:
-product-service ›   GET - https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev/products
-product-service ›   GET - https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev/products/{productId}
-product-service ›   POST - https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev/products
-product-service ›   GET - https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev/swagger
-product-service ›   GET - https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev/swagger.json
-product-service › functions:
-product-service ›   getProducts: rs-aws-bootcamp-be-dev-getProducts (107 kB)
-product-service ›   getProductById: rs-aws-bootcamp-be-dev-getProductById (108 kB)
-product-service ›   createProduct: rs-aws-bootcamp-be-dev-createProduct (108 kB)
-product-service ›   catalogBatchProcess: rs-aws-bootcamp-be-dev-catalogBatchProcess (443 kB)
-product-service ›   swaggerUI: rs-aws-bootcamp-be-dev-swagger-ui (1.6 kB)
-product-service ›   swaggerJSON: rs-aws-bootcamp-be-dev-swagger-json (3.2 kB)
+product-service › No changes to deploy. Deployment skipped. (9s)
 product-service › 1 deprecation found: run 'serverless doctor' for more details
 product-service › Monitor all your API routes with Serverless Console: run "serverless --console"
-product-service › Running "serverless info --verbose --stage dev"
-product-service › Running "serverless" from node_modules
-product-service › service: rs-aws-bootcamp-be
-product-service › stage: dev
-product-service › region: us-east-1
-product-service › stack: rs-aws-bootcamp-be-dev
-product-service › endpoints:
-product-service ›   GET - https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev/products
-product-service ›   GET - https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev/products/{productId}
-product-service ›   POST - https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev/products
-product-service › functions:
-product-service ›   getProducts: rs-aws-bootcamp-be-dev-getProducts
-product-service ›   getProductById: rs-aws-bootcamp-be-dev-getProductById
-product-service ›   createProduct: rs-aws-bootcamp-be-dev-createProduct
-product-service ›   catalogBatchProcess: rs-aws-bootcamp-be-dev-catalogBatchProcess
-product-service › 
-product-service › Stack Outputs:
-product-service ›   GetProductByIdLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-getProductById:6
-product-service ›   sqsURL: https://sqs.us-east-1.amazonaws.com/654209632309/catalogItemsQueue
-product-service ›   SwaggerJSONLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-swagger-json:7
-product-service ›   sqsArn: arn:aws:sqs:us-east-1:654209632309:catalogItemsQueue
-product-service ›   SwaggerUILambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-swagger-ui:4
-product-service ›   CreateProductLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-createProduct:6
-product-service ›   CatalogBatchProcessLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-catalogBatchProcess:2
-product-service ›   ServiceEndpoint: https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev
-product-service ›   ServerlessDeploymentBucketName: rs-aws-bootcamp-be-dev-serverlessdeploymentbucket-1h1s0xyvgsv38
-product-service ›   GetProductsLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-getProducts:6
-product-service › 1 deprecation found: run 'serverless doctor' for more details
-product-service › deployed
+product-service › no changes
 import-service › deploying
 import-service › Running "serverless deploy --stage dev --param sqsURL=https://sqs.us-east-1.amazonaws.com/654209632309/catalogItemsQueue --param sqsArn=arn:aws:sqs:us-east-1:654209632309:catalogItemsQueue"
 import-service › Running "serverless" from node_modules
 import-service › Deploying import-service-rs-aws-bootcamp-be to stage dev (us-east-1)
 import-service › × Couldn't read types from file: ./src/types/api-types.d.ts
 import-service › Creating Swagger file...
-import-service › ✔ Service deployed to stack import-service-rs-aws-bootcamp-be-dev (71s)
+import-service › ✔ Service deployed to stack import-service-rs-aws-bootcamp-be-dev (63s)
 import-service › endpoints:
 import-service ›   GET - https://r3a39j2b28.execute-api.us-east-1.amazonaws.com/dev/import
 import-service ›   GET - https://r3a39j2b28.execute-api.us-east-1.amazonaws.com/dev/swagger
@@ -81,10 +40,10 @@ import-service ›   importProductsFile: import-service-rs-aws-bootcamp-be-dev-i
 import-service ›   importFileParser: import-service-rs-aws-bootcamp-be-dev-importFileParser
 import-service › 
 import-service › Stack Outputs:
-import-service ›   ImportProductsFileLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-importProductsFile:12
+import-service ›   ImportProductsFileLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-importProductsFile:13
 import-service ›   SwaggerJSONLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-swagger-json:6
 import-service ›   SwaggerUILambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-swagger-ui:5
-import-service ›   ImportFileParserLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-importFileParser:15
+import-service ›   ImportFileParserLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-importFileParser:16
 import-service ›   ServiceEndpoint: https://r3a39j2b28.execute-api.us-east-1.amazonaws.com/dev
 import-service ›   ServerlessDeploymentBucketName: import-service-rs-aws-bo-serverlessdeploymentbuck-1ggjqtjswww5p
 import-service › deployed

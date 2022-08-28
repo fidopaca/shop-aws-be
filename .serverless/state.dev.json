@@ -8,16 +8,16 @@
         "detectedFrameworkVersion": "3.21.0"
       },
       "outputs": {
-        "GetProductByIdLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-getProductById:6",
+        "GetProductByIdLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-getProductById:7",
         "sqsURL": "https://sqs.us-east-1.amazonaws.com/654209632309/catalogItemsQueue",
-        "SwaggerJSONLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-swagger-json:7",
+        "SwaggerJSONLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-swagger-json:8",
         "sqsArn": "arn:aws:sqs:us-east-1:654209632309:catalogItemsQueue",
         "SwaggerUILambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-swagger-ui:4",
-        "CreateProductLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-createProduct:6",
-        "CatalogBatchProcessLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-catalogBatchProcess:2",
+        "CreateProductLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-createProduct:7",
+        "CatalogBatchProcessLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-catalogBatchProcess:3",
         "ServiceEndpoint": "https://t5kq0xla8h.execute-api.us-east-1.amazonaws.com/dev",
         "ServerlessDeploymentBucketName": "rs-aws-bootcamp-be-dev-serverlessdeploymentbucket-1h1s0xyvgsv38",
-        "GetProductsLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-getProducts:6"
+        "GetProductsLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:rs-aws-bootcamp-be-dev-getProducts:7"
       }
     },
     "import-service": {
@@ -25,12 +25,23 @@
         "detectedFrameworkVersion": "3.21.0"
       },
       "outputs": {
-        "ImportProductsFileLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-importProductsFile:12",
+        "ImportProductsFileLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-importProductsFile:13",
         "SwaggerJSONLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-swagger-json:6",
         "SwaggerUILambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-swagger-ui:5",
-        "ImportFileParserLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-importFileParser:15",
+        "ImportFileParserLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:import-service-rs-aws-bootcamp-be-dev-importFileParser:16",
         "ServiceEndpoint": "https://r3a39j2b28.execute-api.us-east-1.amazonaws.com/dev",
         "ServerlessDeploymentBucketName": "import-service-rs-aws-bo-serverlessdeploymentbuck-1ggjqtjswww5p"
+      }
+    },
+    "authorization-service": {
+      "state": {
+        "detectedFrameworkVersion": "3.21.0"
+      },
+      "outputs": {
+        "BasicAuthorizerLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:654209632309:function:authorization-service-dev-basicAuthorizer:1",
+        "basicAuthorizerArn": "arn:aws:lambda:us-east-1:654209632309:function:authorization-service-dev-basicAuthorizer",
+        "ServiceEndpoint": "https://yrf4kn6edj.execute-api.us-east-1.amazonaws.com/dev",
+        "ServerlessDeploymentBucketName": "authorization-service-de-serverlessdeploymentbuck-1jtzby5o0t2y7"
       }
     }
   }
