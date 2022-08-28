@@ -9,6 +9,13 @@ export default {
         path: "import",
         cors: true,
         summary: "Import a csv file contains products",
+        authorizer: {
+          name: 'basicAuthorizer',
+          arn: "arn:aws:lambda:us-east-1:654209632309:function:authorization-service-dev-basicAuthorizer",
+          // resultTtlInSeconds: 0,
+          identitySource: 'method.request.header.Authorization',
+          type: 'token',
+        },
         request: {
           parameters: {
             querystrings: {

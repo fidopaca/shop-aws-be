@@ -9,3 +9,4 @@ services:
     params:
       sqsURL: ${product-service.sqsURL}
       sqsArn: ${product-service.sqsArn}
+
