@@ -1,8 +1,9 @@
 import type { AWS } from "@serverless/typescript";
+import * as dotenv from "dotenv";
 import getProducts from "@functions/getProductsList";
 import getProductById from "@functions/getProductById";
 import createProduct from "@functions/createProduct";
-import * as dotenv from 'dotenv';
+import catalogBatchProcess from "@functions/catalogBatchProcess";
 
 dotenv.config();
 
@@ -10,21 +11,37 @@ const serverlessConfiguration: AWS = {
   service: "rs-aws-bootcamp-be",
   frameworkVersion: "3",
   useDotenv: true,
-  plugins: [
-    "serverless-auto-swagger",
-    "serverless-esbuild",
-    "serverless-offline",
-  ],
+  plugins: ["serverless-auto-swagger", "serverless-esbuild", "serverless-offline"],
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
     stage: "dev",
     region: "us-east-1",
-    profile: "${env:AWS_PROFILE}",
+    profile: "fidopaca-futurecodelab",
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
+    iamRoleStatements: [
+      {
+        Effect: "Allow",
+        Action: "sqs:*",
+        Resource: [
+          {
+            "Fn::GetAtt": ["catalogItemsQueue", "Arn"],
+          },
+        ],
+      },
+      {
+        Effect: "Allow",
+        Action: "sns:*",
+        Resource: [
+          {
+            Ref: "createProductTopic",
+          },
+        ],
+      },
+    ],
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
@@ -33,7 +50,9 @@ const serverlessConfiguration: AWS = {
       PG_DATABASE: process.env.PG_DATABASE,
       PG_USERNAME: process.env.PG_USERNAME,
       PG_PASSWORD: process.env.PG_PASSWORD,
-      AWS_PROFILE: process.env.AWS_PROFILE,
+      SNS_TOPIC_ARN: {
+        Ref: "createProductTopic",
+      },
     },
   },
   custom: {
@@ -53,11 +72,65 @@ const serverlessConfiguration: AWS = {
     autoswagger: {
       apiType: "http",
       basePath: "/${self:provider.stage}",
-      title:"RS-AWS Product Shop API"
+      title: "RS-AWS Product Shop API",
     },
   },
   package: { individually: true },
-  functions: { getProducts, getProductById, createProduct },
+  functions: { getProducts, getProductById, createProduct, catalogBatchProcess },
+  resources: {
+    Resources: {
+      catalogItemsQueue: {
+        Type: "AWS::SQS::Queue",
+        Properties: {
+          QueueName: "catalogItemsQueue",
+        },
+      },
+      createProductTopic: {
+        Type: "AWS::SNS::Topic",
+        Properties: {
+          TopicName: "createProductTopic",
+        },
+      },
+      createProductSubscription: {
+        Type: "AWS::SNS::Subscription",
+        Properties: {
+          Protocol: "email",
+          Endpoint: "fidopaca@gmail.com",
+          TopicArn: {
+            Ref: "createProductTopic",
+          },
+        },
+      },
+      createProductOverstockSubscription: {
+        Type: "AWS::SNS::Subscription",
+        Properties: {
+          Protocol: "email",
+          Endpoint: "fedaipaca@gmail.com",
+          TopicArn: {
+            Ref: "createProductTopic",
+          },
+          FilterPolicy:{
+            overstock: ["true"]
+          }
+        },
+      },
+    },
+    Outputs: {
+      sqsURL: {
+        Value: {
+          Ref: "catalogItemsQueue"
+        }
+      },
+      sqsArn: {
+        Value: {
+          "Fn::GetAtt": [
+             "catalogItemsQueue",
+             "Arn"
+          ]
+       }
+      }
+    }
+  },
 };
 
 module.exports = serverlessConfiguration;
